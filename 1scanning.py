@@ -1,20 +1,20 @@
-import cv2
-import os
-import numpy as np
-from PIL import Image
+import cv2 #bawaan opencv untuk vision
+import os #os untuk simulasi data file and folder dari python
+import numpy as np #mengubah gambar jadi angka bawaan numpy
+from PIL import Image #memanipulasi gambar bawaan dari pillow
 
 # --- KONFIGURASI ---
-DATASET_FOLDER = 'dataset'
-TRAINER_FILE = 'trainer.yml'
-CASCADE_PATH = cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
+DATASET_FOLDER = 'dataset' #folder menyimpan data gambar
+TRAINER_FILE = 'trainer.yml' #folder menyimpan data gambar yang dilatih
+CASCADE_PATH = cv2.data.haarcascades + "haarcascade_frontalface_default.xml" #bawaan dari file xml mendeteksi keberadaan wajah
 
 # Buat folder dataset otomatis kalau belum ada
 if not os.path.exists(DATASET_FOLDER):
     os.makedirs(DATASET_FOLDER)
 
 # Inisialisasi Detektor & Pengenal
-face_detector = cv2.CascadeClassifier(CASCADE_PATH)
-recognizer = cv2.face.LBPHFaceRecognizer_create()
+face_detector = cv2.CascadeClassifier(CASCADE_PATH) #deteksi bahwa itu manusia
+recognizer = cv2.face.LBPHFaceRecognizer_create() #mendeteksi wajah menggunakan lbph
 
 def ambil_foto_wajah():
     print("\n[PROSES 1] PENGAMBILAN DATA WAJAH")
@@ -24,17 +24,17 @@ def ambil_foto_wajah():
     
     count = 0
     while True:
-        ret, img = cam.read()
+        ret, img = cam.read() #kalo kamera tidak kebuka, break
         if not ret: break
         
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        faces = face_detector.detectMultiScale(gray, 1.3, 5)
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) #mengubah gambar ke warna gray
+        faces = face_detector.detectMultiScale(gray, 1.3, 5) #scala detect wajah
 
         for (x,y,w,h) in faces:
-            cv2.rectangle(img, (x,y), (x+w,y+h), (255,0,0), 2)
+            cv2.rectangle(img, (x,y), (x+w,y+h), (255,0,0), 2) #kotak wajah
             count += 1
             # Simpan foto
-            nama_file = f"{DATASET_FOLDER}/User.{user_id}.{count}.jpg"
+            nama_file = f"{DATASET_FOLDER}/User.{user_id}.{count}.jpg" #memformat data
             cv2.imwrite(nama_file, gray[y:y+h,x:x+w])
             print(f"Ambil foto ke-{count}")
 
@@ -54,10 +54,10 @@ def ambil_foto_wajah():
 def latih_wajah():
     print("\n[PROSES 2] MELATIH KECERDASAN (TRAINING)")
     
-    path = DATASET_FOLDER
-    imagePaths = [os.path.join(path,f) for f in os.listdir(path)]     
-    faceSamples=[]
-    ids = []
+    path = DATASET_FOLDER #memakili proses dataset
+    imagePaths = [os.path.join(path,f) for f in os.listdir(path)] #mengurutkan file
+    faceSamples=[] #menampung data visual
+    ids = [] #memberikan keterangan id
 
     if len(imagePaths) == 0:
         print("Error: Folder dataset kosong! Ambil foto dulu.")
