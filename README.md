@@ -42,6 +42,8 @@ To run this project, you need Python installed along with the following librarie
 python3 1scanning.py
 ```
 
+## How to run the program
+
 ### 1. Add a New User
 Choose 1 to run the registration script to capture a face and save it to the database. Then press 'q' to finish it.
 ### 2. Recognizing face
