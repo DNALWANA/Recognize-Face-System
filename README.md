@@ -38,9 +38,14 @@ To run this project, you need Python installed along with the following librarie
     ```
 
 ## Usage
+```bash
+python3 1scanning.py
+```
 
 ### 1. Add a New User
-Run the registration script to capture a face and save it to the database.
-```bash
-pip install -r requirements.txt
-python3 1scanning.py
+Choose 1 to run the registration script to capture a face and save it to the database. Then press 'q' to finish it.
+### 2. Recognizing face
+Choose 2 to try system to recognize the face who added in step 1, if the face is register the "owner" will show up, if not "stranger" will show up. Then press 'q' to finish it.
+### 3. Close Program
+Choose 3 to close the program
+
