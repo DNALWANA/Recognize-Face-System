@@ -28,7 +28,7 @@ To run this project, you need Python installed along with the following librarie
 
 1.  **Clone the repository**
     ```bash
-    git clone [https://github.com/username/face-recognition-system.git](https://github.com/username/face-recognition-system.git)
+    git clone https://github.com/username/face-recognition-system.git
     cd face-recognition-system
     ```
 
